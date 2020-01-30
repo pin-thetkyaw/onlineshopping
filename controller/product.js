@@ -1,7 +1,7 @@
 
 const Product = require('../models/product')
 // accept data in array
-const products = []
+// const products = []
 
 exports.getAddProduct = (req, res, next) => {
 
@@ -13,10 +13,11 @@ exports.getAddProduct = (req, res, next) => {
 }
 
 exports.postAddProduct = (req, res, next) => {
+    // const title = req.body.title
     //For Ask
     //multidimensional array
     //             key   :  value
-    // object
+    // object create
     //                          title
     const product = new Product(req.body.title);
     product.save();
@@ -24,12 +25,16 @@ exports.postAddProduct = (req, res, next) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    const products = Product.fetchAll();
-    res.render('shop', {
-        pageTitle: 'Shop',
-        //variable path
-        path: '/',
-        //variable:variable
-        prods: products
+    //all data insert into  function=products or cd
+    const products = Product.fetchAll((products) => {
+        res.render('shop', {
+            pageTitle: 'Shop',
+            //variable path
+            path: '/',
+            //variable:variable
+            prods: products
+
+        });
+
     });
 };
