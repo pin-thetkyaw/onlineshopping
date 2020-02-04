@@ -1,13 +1,3 @@
-<!-- <form class="product-form" action="/product" method="POST">
-    <div class="form-control">
-
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-        <button type="submit" class="btn">Add Product</button>
-    </div>
-</form> -->
-
-
 <main>
     <div class="container">
         <div class="row">
@@ -32,10 +22,24 @@
                                 <!-- Name -->
                                 <div class="md-form mt-3">
                                     <input type="text" id="title" name="title" class="form-control">
-                                    <label for="materialSubscriptionFormPasswords">Title</label>
+                                    <label for="title">Title</label>
+                                </div>
+                                <div class="md-form mt-3">
+                                    <input type="text" id="imageUrl" name="imageUrl" class="form-control">
+                                    <label for="imageUrl">imageUrl</label>
+                                </div>
+                                <div class="md-form mt-3">
+                                    <input type="number" id="price" name="price" class="form-control">
+                                    <label for="price">Price</label>
+                                </div>
+                                <div class="md-form mt-3">
+                                    <textarea name="description" id="description" cols="30" rows="3">
+
+                                    </textarea>
+                                    <label for="description">Description</label>
                                 </div>
                                 <!-- Sign in button -->
-                                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect"
+                                <button class="btn btn-info btn-rounded btn-block z-depth-0 my-4 waves-effect"
                                     type="submit">Add</button>
 
                             </form>

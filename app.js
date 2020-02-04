@@ -17,7 +17,7 @@ const shopRoute = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 //don't need
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 
 
