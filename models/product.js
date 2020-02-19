@@ -1,59 +1,42 @@
-const fs = require('fs');
-const path = require('path');
+const mongodb = require('mongodb')
+const getDb = require('../util/database').getDb;
 
-module.exports = class Product {
-    //constructor =object built
+
+class Product {
     constructor(title, imageUrl, price, description) {
-        // this =Product
         this.title = title;
         this.imageUrl = imageUrl;
         this.price = price;
         this.description = description;
+
     }
-    // function save
     save() {
-        // products.push(this);
-        // process = every file can call onlinsh->data->pro.json
-        const p = path.join(path.dirname(process.mainModule.filename), 'data', 'product.json');
-        //callback function (err) or ar
-        fs.readFile(p, (err, fileContent) => {
-            // local variable =let
-            let products = [];
-            if (!err) {
-                //data change to json
-                products = JSON.parse(fileContent);
-            }
-            console.log(products);
-            // this= form title
-            products.push(this);
-            console.log(products);
-            //writefile product
-            // json format to product.json
-            fs.writeFile(p, JSON.stringify(products), (err) => {
-                if (err) {
-                    console.log(err);
-                }
+        const db = getDb();
 
-
+        return db.collection('products').insertOne(this)
+            .then(result => { console.log(result) })
+            .catch(err => { console.log(err) })
+    }
+    static fetchAll() {
+        const db = getDb();
+        return db.collection('products').find().toArray()
+            .then(products => {
+                return products;
             })
-        })
+            .catch(err => {
+                console.log(err);
+            })
     }
-    // retrieve fetchall
-    //cb is function name =all data insert
-    static fetchAll(cb) {
-        // products.push(this);
-        // process = every file can call onlinsh->data->pro.json
-        const p = path.join(path.dirname(process.mainModule.filename), 'data', 'product.json');
-        fs.readFile(p, (err, fileContent) => {
-            if (err) {
-                //call the function cb()
-                cb([]);
-            }
-            // json to origin
-
-            cb(JSON.parse(fileContent));
-        })
-
+    static findById(prodId) {
+        const db = getDb();
+        return db.collection('products').find({ _id: new mongodb.ObjectId(prodId) }).next()
+            .then(product => {
+                return product;
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
-};
+}
+module.exports = Product;

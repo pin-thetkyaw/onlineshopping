@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -13,11 +14,9 @@ app.set('view engine', 'ejs');
 //IMport form router module
 const adminRoute = require('./routes/admin');
 const shopRoute = require('./routes/shop');
+//Import from util
+const mongoConnect = require('./util/database').mongoConnect;
 
-
-app.use(bodyParser.urlencoded({ extended: false }));
-//don't need
-// app.use(express.static(path.join(__dirname, 'public')));
 
 
 
@@ -34,4 +33,7 @@ app.use((req, res, next) => {
 
 
 });
-app.listen(9000);
+mongoConnect(() => {
+    app.listen(3000);
+})
+
