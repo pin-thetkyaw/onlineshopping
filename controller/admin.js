@@ -5,7 +5,7 @@ const mongodb = require('mongodb');
 // const products = []
 
 exports.getAddProduct = (req, res, next) => {
-
+    console.log(req.user)
     // res.sendFile(path.join(__dirname, '../', 'view', 'add-product.html'));
     res.render('admin/product-form.ejs', {
         pageTitle: 'add-product',
@@ -15,11 +15,13 @@ exports.getAddProduct = (req, res, next) => {
 }
 
 exports.postAddProduct = (req, res, next) => {
+
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
     const title = req.body.title;
-    const product = new Product(title, imageUrl, price, description)
+    const userId = req.user._id;
+    const product = new Product(title, imageUrl, price, description, userId, null)
     product.save()
         .then(result => {
             console.log(result)
@@ -96,8 +98,9 @@ exports.postEditProduct = (req, res, next) => {
     const updatedimageUrl = req.body.imageUrl;
     const updatedprice = req.body.price;
     const updateddescription = req.body.description;
+    const updatedUserId = req.user._Id
 
-    const product = new Product(updatedTitle, updatedimageUrl, updatedprice, updateddescription, new mongodb.ObjectId(prodId))
+    const product = new Product(updatedTitle, updatedimageUrl, updatedprice, updateddescription, updatedUserId, new mongodb.ObjectId(prodId))
     product.save().then(result => {
         console.log("Your updated is sucessful")
         res.redirect('/admin/products')

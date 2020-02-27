@@ -10,3 +10,11 @@
 <h1>
     <%=product.description %>
 </h1>
+
+<form action="/carts" method="POST">
+
+    <button class="btn btn-black btn-rounded btn-sm px-3 waves-effect" type="submit">Add
+        to Card</button>
+    <input type="hidden" name="productId" value="<%= product._id %>">
+
+</form>
